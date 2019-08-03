@@ -4,7 +4,7 @@ import './search-panel.css';
 
 const SearchPanel = () => {
     return (
-        <div class="d-flex search-panel">
+        <div className="d-flex search-panel">
             <input type="search" placeholder="search" />
             <ItemStatusFilter />
         </div>

@@ -1,3 +1,16 @@
 .todo-list-item {
-    width: 100%
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.done {
+    text-decoration: line-through;
+}
+
+.todo-list-item.done .todo-list-item-label {
+    text-decoration: line-through;
+}
+.todo-list-item.important .todo-list-item-label {
+    font-weight: bold;
+    color: steelblue;
 }
