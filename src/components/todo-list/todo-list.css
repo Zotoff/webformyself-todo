@@ -1,0 +1,7 @@
+.todo-list .list-group-item {
+    padding: .25rem .75rem;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

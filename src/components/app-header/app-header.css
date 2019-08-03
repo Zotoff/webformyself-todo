@@ -1,0 +1,5 @@
+.app-header {align-items: flex-end}
+.app-header h2 {
+    font-size: 18px; color: grey;
+    padding-left: 30px
+}
