@@ -14,7 +14,8 @@ class App extends Component {
             this.createTodoItem('Drink Coffee'),
             this.createTodoItem('Make Awesome App'),
             this.createTodoItem('Have a lunch')
-        ]
+        ],
+        term: ''
     };
 
     createTodoItem(label) {
@@ -105,7 +106,50 @@ class App extends Component {
         })
     }
 
+    doneFilter = (arr) => {
+        this.setState(({todoData})=>{
+            const doneArr = this.state.todoData.filter((el)=>el.done);
+            const newItem = doneArr;
+            return {
+                todoData: newItem
+            }
+        })
+    }
+    allFilter = (arr) => {
+        console.log('all');
+        this.setState(({todoData})=>{
+            const allArr = this.state.todoData.filter((el)=>el);
+            const newItem = allArr;
+            return {
+                todoData: newItem
+            }
+        })
+    }
+
+    // Функция поиска
+    search(items, term) {
+        if(term.length === 0) {
+            return items;
+        }
+        // Фильтруем массив по фразе
+        return items.filter((item) => {
+            return item.label
+                .toLowerCase()
+                .indexOf(term.toLowerCase()) > -1; // выводим все элементы, где присутствует фраза из term
+        })
+    }
+
+    // Обработчик ввода в форме
+    onSearchChange = (term) => {
+        // Задаем state значением из формы
+        this.setState({term});
+    }
+
     render(){
+
+        const {todoData, term} = this.state;
+
+        const visibleItems = this.search(todoData, term);
 
         const doneCount = this.state.todoData.filter((el)=>el.done).length; // фильтруем массив по кол-ву элементов done=true
         const todoCount = this.state.todoData.length - doneCount;
@@ -113,8 +157,8 @@ class App extends Component {
        return (
         <div>
             <AppHeader toDo={todoCount} done={doneCount}/>
-            <SearchPanel />
-            <TodoList todo={this.state.todoData} onDeleted={this.deleteItem} onToggleDone={this.onToggleDone} onToggleImportant={this.onToggleImportant}/>
+            <SearchPanel onSearchChange={this.onSearchChange}/>
+            <TodoList todo={visibleItems} onDeleted={this.deleteItem} onToggleDone={this.onToggleDone} onToggleImportant={this.onToggleImportant}/>
             <AddItem addItem={this.addItem}/>
         </div>
         )
