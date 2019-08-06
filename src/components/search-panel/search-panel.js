@@ -5,7 +5,8 @@ import './search-panel.css';
 class SearchPanel extends Component {
 
     state = {
-        term: ''
+        term: '',
+        filter: ''
     }
     
     onSearchChange = (e) => {
@@ -14,11 +15,16 @@ class SearchPanel extends Component {
         this.props.onSearchChange(term);
     }
 
+    onFilterChange = (filter) => {
+        this.setState({filter})
+    }
+
     render(){
+        const {filter} = this.props;
         return (
             <div className="d-flex search-panel">
                 <input type="search" placeholder="search" value={this.state.term} onChange={this.onSearchChange}/>
-                <ItemStatusFilter/>
+                <ItemStatusFilter filter={filter} onFilterChange={this.onFilterChange}/>
             </div>
         )
     }
